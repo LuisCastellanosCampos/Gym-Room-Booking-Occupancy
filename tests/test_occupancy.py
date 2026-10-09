@@ -100,6 +100,14 @@ def test_all_events_at_shared_instant_are_applied_before_measuring() -> None:
     assert max_occupancy([(0, 2), (2, 5), (2, 4)])[0] == 2
 
 
+def test_maximum_period_extends_across_change_instants() -> None:
+    assert max_occupancy([(1, 5), (2, 3), (3, 4)]) == (2, 2, 4)
+
+
+def test_first_of_separated_equal_maximum_periods_is_returned() -> None:
+    assert max_occupancy([(1, 3), (2, 3), (5, 7), (6, 7)]) == (2, 2, 3)
+
+
 def test_sorted_events_keep_coincident_starts_and_ends() -> None:
     assert _build_sorted_events(
         [(1, 4), (1, 4), (1, 3), (2, 4)]

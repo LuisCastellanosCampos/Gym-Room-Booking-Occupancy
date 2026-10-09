@@ -14,9 +14,13 @@ def _build_sorted_events(
     return events
 
 
-def _maximum_concurrency(events: list[tuple[int, str]]) -> int:
+def _maximum_concurrency(
+    events: list[tuple[int, str]],
+) -> tuple[int, int | None, int | None]:
     active = 0
     maximum = 0
+    peak_start = None
+    peak_end = None
     event_index = 0
 
     while event_index < len(events):
@@ -32,9 +36,15 @@ def _maximum_concurrency(events: list[tuple[int, str]]) -> int:
             event_index += 1
 
         if event_index < len(events):
-            maximum = max(maximum, active)
+            next_timestamp = events[event_index][0]
+            if active > maximum:
+                maximum = active
+                peak_start = timestamp
+                peak_end = next_timestamp
+            elif active == maximum and active > 0 and timestamp == peak_end:
+                peak_end = next_timestamp
 
-    return maximum
+    return (maximum, peak_start, peak_end)
 
 
 def max_occupancy(
@@ -70,4 +80,4 @@ def max_occupancy(
             )
 
     events = _build_sorted_events(bookings)
-    return (_maximum_concurrency(events), None, None)
+    return _maximum_concurrency(events)
