@@ -71,11 +71,7 @@ def test_booking_with_non_integer_or_boolean_time_raises_identifying_error(
 
 
 def test_integer_booking_passes_validation() -> None:
-    with pytest.raises(
-        NotImplementedError,
-        match="Non-empty bookings are not implemented yet",
-    ):
-        max_occupancy([(1, 2)])
+    assert max_occupancy([(1, 2)])[0] == 1
 
 
 @pytest.mark.parametrize(
@@ -89,11 +85,19 @@ def test_integer_booking_passes_validation() -> None:
 def test_valid_booking_with_negative_times_passes_validation(
     booking: tuple[int, int],
 ) -> None:
-    with pytest.raises(
-        NotImplementedError,
-        match="Non-empty bookings are not implemented yet",
-    ):
-        max_occupancy([booking])
+    assert max_occupancy([booking])[0] == 1
+
+
+def test_overlapping_bookings_return_maximum_concurrency() -> None:
+    assert max_occupancy([(1, 4), (2, 5), (3, 6)])[0] == 3
+
+
+def test_consecutive_bookings_do_not_overlap_at_shared_instant() -> None:
+    assert max_occupancy([(1, 3), (3, 5)])[0] == 1
+
+
+def test_all_events_at_shared_instant_are_applied_before_measuring() -> None:
+    assert max_occupancy([(0, 2), (2, 5), (2, 4)])[0] == 2
 
 
 def test_sorted_events_keep_coincident_starts_and_ends() -> None:

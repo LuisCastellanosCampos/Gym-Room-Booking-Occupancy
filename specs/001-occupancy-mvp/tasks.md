@@ -65,7 +65,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** las pruebas verifican la semántica `[inicio, fin)`, el
   orden determinista y que no se cuentan estados de duración cero.
 
-- [ ] **T007 — Calcular el máximo de reservas concurrentes** (25 min)  
+- [x] **T007 — Calcular el máximo de reservas concurrentes** (25 min)  
   **RF:** RF-1, RF-2, RF-6.  
   **Depende de:** T006.  
   Recorrer los instantes distintos, aplicar todos sus eventos antes de medir el
