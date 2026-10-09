@@ -91,7 +91,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** cada duplicado incrementa la concurrencia según corresponda
   y las pruebas enfocadas pasan.
 
-- [ ] **T010 — Verificar el rechazo completo de listas inválidas** (25 min)  
+- [x] **T010 — Verificar el rechazo completo de listas inválidas** (25 min)  
   **RF:** RF-5, RF-8.  
   **Depende de:** T003, T004, T007.  
   Probar listas que mezclen reservas válidas e inválidas y confirmar que la

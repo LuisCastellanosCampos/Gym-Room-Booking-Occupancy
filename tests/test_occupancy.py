@@ -70,6 +70,29 @@ def test_booking_with_non_integer_or_boolean_time_raises_identifying_error(
     )
 
 
+@pytest.mark.parametrize(
+    ("bookings", "invalid_index"),
+    [
+        ([(2, 5), (3, 3), (4, 8)], 1),
+        ([(3, 3), (2, 5), (4, 8)], 0),
+        ([(2, 5), (4, 8), (3, 3)], 2),
+    ],
+)
+def test_mixed_valid_and_invalid_bookings_reject_the_entire_input(
+    bookings: list[tuple[int, int]],
+    invalid_index: int,
+) -> None:
+    invalid_booking = bookings[invalid_index]
+
+    with pytest.raises(InvalidBookingError) as error:
+        max_occupancy(bookings)
+
+    assert str(error.value) == (
+        f"Invalid booking at index {invalid_index} ({invalid_booking!r}): "
+        "start must be less than end"
+    )
+
+
 def test_integer_booking_passes_validation() -> None:
     assert max_occupancy([(1, 2)])[0] == 1
 
