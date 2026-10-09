@@ -188,15 +188,17 @@ malformed endpoint count, a non-integer or boolean endpoint, or `start >= end`.
 The error must identify the offending booking and the reason, as required by
 the specification; invalid entries are not skipped. (RF-5, RF-8)
 
-**Pending specification detail:** The specification requires an explicit error
-but does not name its Python exception class, define the exact error-message
-format, or specify how the offending booking is identified in that message
-(for example, by position, value, or both). These details must be resolved
-before implementation; this plan does not choose them. The declared function
-input type is a list of tuples, but runtime handling of a non-list outer
-container or a non-tuple booking is also not separately specified. Do not
-extend the accepted input shapes or define extra rejection behavior without
-clarification. (RF-5)
+Validation errors will use a public `InvalidBookingError` class that subclasses
+`ValueError`. Its English message will follow
+`Invalid booking at index {index} ({booking!r}): {reason}`, where `index` is
+zero-based, `booking` is the offending entry, and `reason` briefly describes
+the violated rule. This provides callers with both the entry's position and
+value without changing the accepted input formats. (RF-5)
+
+The declared function input type is a list of tuples, but runtime handling of a
+non-list outer container or a non-tuple booking is not separately specified.
+Do not extend the accepted input shapes or define extra rejection behavior
+without clarification. (RF-5)
 
 The project currently has no executable Python module, so there is no existing
 entry-point behavior to describe or verify. Do not create a user-facing CLI or
@@ -214,7 +216,7 @@ changed. (RF-1–RF-9; out of scope)
 | Keep separate events for duplicate input entries. | Each duplicate is an independent booking by specification. | Deduplicate or merge identical intervals automatically. | RF-7 |
 | Check integer endpoints while explicitly excluding booleans, and allow negative integer instants when `start < end`. | This follows Python's bool/int relationship and the explicitly defined endpoint rules. | Use `isinstance(value, int)` alone, or reject negative instants. | RF-5, RF-8–RF-9 |
 | Keep the core as a pure module using the standard library only. | It isolates deterministic calculation and validation from I/O, external services, databases, and interfaces. | Add framework, storage, or transport dependencies to the calculation. | RF-1–RF-9 |
-| Leave the precise exception class and message construction unresolved until clarified. | The specification fixes the need for an identifying explicit error but not its Python representation. | Choose an exception class/message convention without specification support. | RF-5 |
+| Raise `InvalidBookingError`, a `ValueError` subclass, with a message containing the zero-based index, `repr` of the invalid booking, and a concise reason. | Callers can catch the specific validation error or its standard `ValueError` base and can identify both the offending entry and cause. | Use an unspecified generic exception or report only the value or position. | RF-5 |
 
 ## 7. Test strategy
 
@@ -261,4 +263,3 @@ threshold test is specified. (RF-5; non-functional performance measurement)
 | RF-7 — Define duplicate handling | Sections 3, 4, and 6: independent events per input entry, no automatic deduplication. | Identical duplicate bookings each increment occupancy. |
 | RF-8 — Define valid integer semantics | Sections 3, 5, 6, and 7: integer endpoint check with booleans rejected. | Integer success; non-integer and boolean endpoint rejection. |
 | RF-9 — Define negative instants | Sections 3, 5, 6, and 7: valid negative endpoints are not a business-rule concern of this function. | Valid negative intervals accepted; invalid ordering still rejected. |
-
