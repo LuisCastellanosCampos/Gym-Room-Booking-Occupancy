@@ -16,6 +16,18 @@ def max_occupancy(
             )
 
         start, end = booking
+        for time_name, time_value in (("start", start), ("end", end)):
+            if isinstance(time_value, bool):
+                raise InvalidBookingError(
+                    f"Invalid booking at index {index} ({booking!r}): "
+                    f"{time_name} time must not be a boolean"
+                )
+            if not isinstance(time_value, int):
+                raise InvalidBookingError(
+                    f"Invalid booking at index {index} ({booking!r}): "
+                    f"{time_name} time must be an integer"
+                )
+
         if start >= end:
             raise InvalidBookingError(
                 f"Invalid booking at index {index} ({booking!r}): "

@@ -39,7 +39,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** cada entrada inválida produce el error acordado, identifica
   la reserva y su motivo, y las pruebas enfocadas pasan.
 
-- [ ] **T004 — Validar extremos enteros y rechazar booleanos** (25 min)  
+- [x] **T004 — Validar extremos enteros y rechazar booleanos** (25 min)
   **RF:** RF-5, RF-8.  
   **Depende de:** T001, T003.  
   Rechazar extremos que no sean enteros y excluir explícitamente valores
