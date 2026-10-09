@@ -74,7 +74,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** pruebas de una reserva, solapamientos y reservas
   consecutivas devuelven la concurrencia esperada y pasan.
 
-- [ ] **T008 — Devolver el primer período de máximo aforo** (30 min)  
+- [x] **T008 — Devolver el primer período de máximo aforo** (30 min)  
   **RF:** RF-1, RF-3.  
   **Depende de:** T007.  
   Registrar el comienzo y fin del primer período del máximo global; extenderlo
