@@ -14,6 +14,29 @@ def _build_sorted_events(
     return events
 
 
+def _maximum_concurrency(events: list[tuple[int, str]]) -> int:
+    active = 0
+    maximum = 0
+    event_index = 0
+
+    while event_index < len(events):
+        timestamp = events[event_index][0]
+        while (
+            event_index < len(events)
+            and events[event_index][0] == timestamp
+        ):
+            if events[event_index][1] == "start":
+                active += 1
+            else:
+                active -= 1
+            event_index += 1
+
+        if event_index < len(events):
+            maximum = max(maximum, active)
+
+    return maximum
+
+
 def max_occupancy(
     bookings: list[tuple[int, int]],
 ) -> tuple[int, int | None, int | None]:
@@ -46,5 +69,5 @@ def max_occupancy(
                 "start must be less than end"
             )
 
-    _build_sorted_events(bookings)
-    raise NotImplementedError("Non-empty bookings are not implemented yet.")
+    events = _build_sorted_events(bookings)
+    return (_maximum_concurrency(events), None, None)
