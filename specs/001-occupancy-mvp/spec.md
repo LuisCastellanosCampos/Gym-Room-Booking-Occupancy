@@ -109,7 +109,7 @@ The system shall reject the entire list if any booking fails the validity rules.
   shall reject the entire input and raise an explicit error.
 - When all bookings are valid, the system shall not reject them merely because
   one or more instants are negative.
-- Boolean values are not valid integer endpoints for this calculation.
+- Boolean values are not valid integer booking times for this calculation.
 
 ### RF-6: Define event ordering at the same instant
 
@@ -135,12 +135,12 @@ input is explicitly deduplicated before the calculation.
 
 ### RF-8: Define valid integer semantics
 
-The system shall accept integer values as valid endpoints and shall reject
+The system shall accept integer values as valid booking times and shall reject
 non-integer and boolean values.
 
 **Acceptance criteria (EARS):**
 
-- Integer values are valid endpoints.
+- Integer values are valid booking times.
 - Non-integer values are invalid.
 - Boolean values are invalid even though Python treats them as integers.
 
@@ -182,10 +182,10 @@ valid.
   active according to the inclusive/exclusive end semantics.
 - Several separated periods with the same maximum occupancy: the first one in
   chronological order is reported.
-- Start equal to end, start greater than end, non-integer endpoints, boolean
-  endpoints, or a booking not containing exactly two endpoints: the entire list
-  is rejected.
-- Negative instants: accepted when all endpoints are valid integers and the
+- Start equal to end, start greater than end, non-integer booking times, boolean
+  booking times, or a booking not containing exactly a start and end time: the
+  entire list is rejected.
+- Negative instants: accepted when both booking times are valid integers and the
   start is lower than the end.
 - Duplicate identical bookings: each entry contributes independently unless the
   caller deduplicates before the calculation.
@@ -203,7 +203,7 @@ valid.
 ## Completion criteria
 
 - All functional requirements have verifiable acceptance criteria.
-- Endpoint semantics, tie-break behavior, empty lists and invalid inputs are
+- Start/end-time semantics, tie-break behavior, empty lists and invalid inputs are
   consistent with this specification.
 - The boundary cases listed above have been verified, including inputs with
   multiple equal peak periods.
@@ -226,7 +226,7 @@ The following points are now explicitly decided in this specification:
   maximum.
 - Duplicate entries are treated as independent if they are present as distinct
   bookings.
-- Boolean values are rejected as invalid integer endpoints.
+- Boolean values are rejected as invalid integer booking times.
 - Negative integer instants are accepted when valid by the rules above.
 - The specification language and technical terminology are English to align with
   the project constitution.
