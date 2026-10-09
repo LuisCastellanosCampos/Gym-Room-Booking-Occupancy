@@ -55,7 +55,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** las reservas negativas con `inicio < fin` se aceptan y las
   pruebas enfocadas pasan.
 
-- [ ] **T006 — Construir y ordenar los eventos del barrido** (25 min)  
+- [x] **T006 — Construir y ordenar los eventos del barrido** (25 min)\
   **RF:** RF-2, RF-6.  
   **Depende de:** T003, T004.  
   Generar eventos de inicio y fin por cada reserva y ordenarlos por instante,

@@ -1,6 +1,6 @@
 import pytest
 
-from occupancy import InvalidBookingError, max_occupancy
+from occupancy import InvalidBookingError, _build_sorted_events, max_occupancy
 
 
 def test_empty_bookings_return_zero_occupancy_without_peak_bounds() -> None:
@@ -94,3 +94,31 @@ def test_valid_booking_with_negative_times_passes_validation(
         match="Non-empty bookings are not implemented yet",
     ):
         max_occupancy([booking])
+
+
+def test_sorted_events_keep_coincident_starts_and_ends() -> None:
+    assert _build_sorted_events(
+        [(1, 4), (1, 4), (1, 3), (2, 4)]
+    ) == [
+        (1, "start"),
+        (1, "start"),
+        (1, "start"),
+        (2, "start"),
+        (3, "end"),
+        (4, "end"),
+        (4, "end"),
+        (4, "end"),
+    ]
+
+
+def test_sorted_events_place_starts_before_ends_at_shared_instant() -> None:
+    assert _build_sorted_events([(1, 2), (2, 3), (0, 2), (2, 4)]) == [
+        (0, "start"),
+        (1, "start"),
+        (2, "start"),
+        (2, "start"),
+        (2, "end"),
+        (2, "end"),
+        (3, "end"),
+        (4, "end"),
+    ]
