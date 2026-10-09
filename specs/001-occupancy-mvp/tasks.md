@@ -8,14 +8,18 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
 
 ## Tareas
 
-- [ ] **T001 — Acordar la representación del error de validación** (20 min)  
+- [x] **T001 — Acordar la representación del error de validación** (20 min)
   **RF:** RF-5.  
   **Depende de:** ninguna.  
   Definir con la persona responsable la clase de excepción y cómo el mensaje
   identificará la reserva inválida y el motivo, sin ampliar los formatos de
   entrada admitidos. Es un bloqueo para implementar y probar errores.  
-  **Hecho cuando:** la decisión está confirmada y registrada de forma
-  consultable para implementar las pruebas de RF-5.
+  **Hecho cuando:** la decisión está confirmada y registrada de forma consultable
+  para implementar las pruebas de RF-5.
+  **Decisión confirmada:** usar `InvalidBookingError`, subclase de
+  `ValueError`, con el formato inglés
+  `Invalid booking at index {index} ({booking!r}): {reason}`; el índice es
+  base cero y el motivo describe brevemente la regla incumplida.
 
 - [ ] **T002 — Crear la función pública y cubrir la entrada vacía** (25 min)  
   **RF:** RF-1, RF-3, RF-4.  
