@@ -65,7 +65,7 @@ def max_occupancy(
 Each booking is a pair `(start, end)` describing the semi-open interval
 `[start, end)`. Start and end must be integers, but booleans are invalid even
 though `bool` is an `int` subclass in Python. A booking is valid only when
-`start < end`. Negative integer endpoints are valid when these conditions hold.
+`start < end`. Negative integer booking times are valid when these conditions hold.
 Each input entry is independent; identical entries are not silently merged or
 discarded. (RF-2, RF-5, RF-7–RF-9)
 
@@ -116,8 +116,8 @@ Pseudocode:
 ```text
 function max_occupancy(bookings):
     validate each booking:
-        require exactly two endpoints
-        require each endpoint to be an integer and not a boolean
+        require a start time and an end time
+        require both times to be integers and not booleans
         require start < end
         otherwise raise an explicit error identifying the booking and reason
 
@@ -183,8 +183,9 @@ side effects. The function returns the global positive maximum and the bounds
 of its first continuous period for non-empty valid input, and `(0, None, None)`
 for empty input. It accepts valid negative instants. (RF-1–RF-4, RF-8–RF-9)
 
-Validate all bookings before producing events. Reject a booking with a
-malformed endpoint count, a non-integer or boolean endpoint, or `start >= end`.
+Validate all bookings before producing events. Reject a booking without exactly
+a start time and an end time, with a non-integer or boolean time, or with
+`start >= end`.
 The error must identify the offending booking and the reason, as required by
 the specification; invalid entries are not skipped. (RF-5, RF-8)
 
@@ -211,10 +212,10 @@ changed. (RF-1–RF-9; out of scope)
 | Decision | Rationale | Alternative not selected | Coverage |
 |---|---|---|---|
 | Use a sorted event sweep with two events per booking. | It gives `O(n log n)` time and `O(n)` extra space, avoiding pairwise overlap comparisons at `O(n²)`. | Compare every booking with every other booking or sample time points. | RF-1–RF-3 |
-| Treat intervals as `[start, end)` and evaluate occupancy after processing all events at each timestamp. | It excludes an ending booking at the end instant, includes a starting booking there, and avoids counting transient same-timestamp states. | Treat both endpoints as inclusive or count intermediate event updates as positive-duration occupancy. | RF-2, RF-6 |
+| Treat intervals as `[start, end)` and evaluate occupancy after processing all events at each timestamp. | It excludes a booking at its end instant, includes it at its start instant, and avoids counting transient same-timestamp states. | Treat both interval bounds as inclusive or count intermediate event updates as positive-duration occupancy. | RF-2, RF-6 |
 | Sort same-timestamp events with starts before ends, but only measure the occupancy after the complete timestamp group. | It follows the stated deterministic event order while honoring the interval definition. | Allow event ordering to determine a zero-duration occupancy observation. | RF-2, RF-6 |
 | Keep separate events for duplicate input entries. | Each duplicate is an independent booking by specification. | Deduplicate or merge identical intervals automatically. | RF-7 |
-| Check integer endpoints while explicitly excluding booleans, and allow negative integer instants when `start < end`. | This follows Python's bool/int relationship and the explicitly defined endpoint rules. | Use `isinstance(value, int)` alone, or reject negative instants. | RF-5, RF-8–RF-9 |
+| Check booking times as integers while explicitly excluding booleans, and allow negative integer instants when `start < end`. | This follows Python's bool/int relationship and the explicitly defined time rules. | Use `isinstance(value, int)` alone, or reject negative instants. | RF-5, RF-8–RF-9 |
 | Keep the core as a pure module using the standard library only. | It isolates deterministic calculation and validation from I/O, external services, databases, and interfaces. | Add framework, storage, or transport dependencies to the calculation. | RF-1–RF-9 |
 | Raise `InvalidBookingError`, a `ValueError` subclass, with a message containing the zero-based index, `repr` of the invalid booking, and a concise reason. | Callers can catch the specific validation error or its standard `ValueError` base and can identify both the offending entry and cause. | Use an unspecified generic exception or report only the value or position. | RF-5 |
 
@@ -238,11 +239,11 @@ Planned test cases:
 | Duplicate identical bookings | Each entry contributes independently. | RF-1, RF-7 |
 | Maximum sustained across event timestamps | Returns one continuous period while occupancy does not drop below the global maximum. | RF-3 |
 | Several separated periods with equal maximum | Returns the first period chronologically. | RF-3 |
-| Negative valid endpoints | Calculation succeeds when each pair has integer endpoints and `start < end`. | RF-5, RF-9 |
+| Negative valid booking times | Calculation succeeds when both times are integers and `start < end`. | RF-5, RF-9 |
 | Start equals end; start exceeds end | The whole input is rejected with an explicit identifying error. | RF-5 |
-| Missing or extra booking endpoints | The whole input is rejected with an explicit identifying error. | RF-5 |
-| Non-integer endpoint | The whole input is rejected. | RF-5, RF-8 |
-| Boolean endpoint | The whole input is rejected despite `bool` being an `int` subclass. | RF-5, RF-8 |
+| Missing or extra booking times | The whole input is rejected with an explicit identifying error. | RF-5 |
+| Non-integer booking time | The whole input is rejected. | RF-5, RF-8 |
+| Boolean booking time | The whole input is rejected despite `bool` being an `int` subclass. | RF-5, RF-8 |
 | Invalid booking among valid bookings | No partial result is returned; the invalid booking and reason are identified by the error. | RF-5 |
 
 Error tests must assert the exception and identifying details once the pending
@@ -258,8 +259,8 @@ threshold test is specified. (RF-5; non-functional performance measurement)
 | RF-2 — Apply `[start, end)` semantics | Sections 3–6: interval model, grouped timestamp processing, half-open behavior. | Consecutive bookings; coincident starts/ends; simultaneous events; overlapping intervals. |
 | RF-3 — Report the first maximum period | Sections 1, 3–6: continuous-period tracking, extension, reset on a higher maximum, first-period tie-break. | Single peak period; sustained maximum; separated equal maximum periods. |
 | RF-4 — Resolve empty lists | Sections 3, 5, and 6: explicit `(0, None, None)` result. | Empty-list result and no error. |
-| RF-5 — Reject invalid inputs | Sections 3, 5, 6, and 7: complete validation, whole-list rejection, pending error representation. | Wrong endpoint count; equal/reversed endpoints; invalid entry among valid entries; identifying explicit error. |
+| RF-5 — Reject invalid inputs | Sections 3, 5, 6, and 7: complete validation, whole-list rejection, defined error representation. | Missing or extra booking times; equal/reversed times; invalid entry among valid entries; identifying explicit error. |
 | RF-6 — Define same-instant event ordering | Sections 4 and 6: start-before-end ordering and occupancy evaluation after the timestamp group. | Coincident starts/ends and simultaneous end/start transitions. |
 | RF-7 — Define duplicate handling | Sections 3, 4, and 6: independent events per input entry, no automatic deduplication. | Identical duplicate bookings each increment occupancy. |
-| RF-8 — Define valid integer semantics | Sections 3, 5, 6, and 7: integer endpoint check with booleans rejected. | Integer success; non-integer and boolean endpoint rejection. |
-| RF-9 — Define negative instants | Sections 3, 5, 6, and 7: valid negative endpoints are not a business-rule concern of this function. | Valid negative intervals accepted; invalid ordering still rejected. |
+| RF-8 — Define valid integer semantics | Sections 3, 5, 6, and 7: integer booking-time check with booleans rejected. | Integer success; non-integer and boolean booking-time rejection. |
+| RF-9 — Define negative instants | Sections 3, 5, 6, and 7: valid negative booking times are not a business-rule concern of this function. | Valid negative intervals accepted; invalid ordering still rejected. |

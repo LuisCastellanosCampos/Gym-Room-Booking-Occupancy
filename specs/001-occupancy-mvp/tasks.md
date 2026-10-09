@@ -30,7 +30,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** la llamada con `[]` devuelve exactamente
   `(0, None, None)` y las pruebas enfocadas pasan.
 
-- [ ] **T003 — Validar la forma y el orden de cada reserva** (30 min)  
+- [x] **T003 — Validar la forma y el orden de cada reserva** (30 min)
   **RF:** RF-5.  
   **Depende de:** T001, T002.  
   Rechazar reservas que no contengan exactamente dos extremos y aquellas cuyo
