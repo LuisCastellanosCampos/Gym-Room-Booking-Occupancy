@@ -47,7 +47,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** las pruebas confirman que los enteros se admiten, los
   booleanos y otros tipos no enteros se rechazan con el error acordado, y pasan.
 
-- [ ] **T005 — Aceptar instantes negativos válidos** (20 min)  
+- [x] **T005 — Aceptar instantes negativos válidos** (20 min)
   **RF:** RF-5, RF-9.  
   **Depende de:** T003, T004.  
   Agregar pruebas de reservas con inicio negativo, fin negativo y extremos a

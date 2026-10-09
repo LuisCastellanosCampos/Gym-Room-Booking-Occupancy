@@ -76,3 +76,21 @@ def test_integer_booking_passes_validation() -> None:
         match="Non-empty bookings are not implemented yet",
     ):
         max_occupancy([(1, 2)])
+
+
+@pytest.mark.parametrize(
+    "booking",
+    [
+        (-3, 2),
+        (-5, -1),
+        (-2, 4),
+    ],
+)
+def test_valid_booking_with_negative_times_passes_validation(
+    booking: tuple[int, int],
+) -> None:
+    with pytest.raises(
+        NotImplementedError,
+        match="Non-empty bookings are not implemented yet",
+    ):
+        max_occupancy([booking])
