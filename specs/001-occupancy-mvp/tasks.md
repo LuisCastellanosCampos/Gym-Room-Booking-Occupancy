@@ -21,7 +21,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   `Invalid booking at index {index} ({booking!r}): {reason}`; el índice es
   base cero y el motivo describe brevemente la regla incumplida.
 
-- [ ] **T002 — Crear la función pública y cubrir la entrada vacía** (25 min)  
+- [x] **T002 — Crear la función pública y cubrir la entrada vacía** (25 min)
   **RF:** RF-1, RF-3, RF-4.  
   **Depende de:** ninguna.  
   Crear `occupancy.py` con la firma pública especificada y agregar
