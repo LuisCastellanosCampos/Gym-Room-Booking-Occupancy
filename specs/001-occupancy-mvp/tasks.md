@@ -83,7 +83,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** pruebas de máximo sostenido y de máximos separados iguales
   verifican los límites del primer período y pasan.
 
-- [ ] **T009 — Contar las reservas duplicadas de forma independiente** (20 min)  
+- [x] **T009 — Contar las reservas duplicadas de forma independiente** (20 min)  
   **RF:** RF-1, RF-7.  
   **Depende de:** T007.  
   Agregar pruebas con reservas idénticas repetidas y comprobar que ninguna se

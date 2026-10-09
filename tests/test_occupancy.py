@@ -92,6 +92,10 @@ def test_overlapping_bookings_return_maximum_concurrency() -> None:
     assert max_occupancy([(1, 4), (2, 5), (3, 6)])[0] == 3
 
 
+def test_identical_bookings_each_contribute_to_occupancy() -> None:
+    assert max_occupancy([(1, 3), (1, 3), (1, 3)]) == (3, 1, 3)
+
+
 def test_consecutive_bookings_do_not_overlap_at_shared_instant() -> None:
     assert max_occupancy([(1, 3), (3, 5)])[0] == 1
 
