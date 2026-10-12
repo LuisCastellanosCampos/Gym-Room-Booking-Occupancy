@@ -114,7 +114,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   cómo instalar y ejecutar, cómo lanzar los tests, y prepara un apartado par colocar el enlace a un vídeo.  
   **Hecho cuando:** el README documenta lo neceasario.
 
-- [ ] **T013 — Documentar algoritmo, complejidad y casos límite** (30 min)  
+- [x] **T013 — Documentar algoritmo, complejidad y casos límite** (30 min)
   **RF:** RF-1–RF-9.  
   **Depende de:** T003–T011.  
   Crear `ANALYSIS.md` en inglés con el barrido de eventos, la complejidad
