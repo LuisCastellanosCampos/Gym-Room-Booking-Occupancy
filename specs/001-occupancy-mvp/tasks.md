@@ -99,7 +99,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** cualquier reserva inválida hace fallar la llamada con el
   error acordado y la prueba confirma que no se devuelve un resultado parcial.
 
-- [ ] **T011 — Verificar determinismo y conservación de la entrada** (20 min)  
+- [x] **T011 — Verificar determinismo y conservación de la entrada**
   **RF:** RF-1, RF-3, RF-6.  
   **Depende de:** T006, T008.  
   Agregar pruebas que repitan la misma entrada y que comprueben que el cálculo
