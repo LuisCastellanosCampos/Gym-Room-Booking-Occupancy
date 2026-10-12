@@ -123,7 +123,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** el documento explica `O(n log n)` de tiempo, `O(n)` de
   espacio y cubre los nueve requisitos sin introducir umbrales de rendimiento.
 
-- [ ] **T014 — Ejecutar la verificación final de la suite** (20 min)  
+- [x] **T014 — Ejecutar la verificación final de la suite** (20 min)  
   **RF:** RF-1–RF-9.  
   **Depende de:** T002–T013.  
   Ejecutar la suite completa del proyecto y corregir cualquier regresión
