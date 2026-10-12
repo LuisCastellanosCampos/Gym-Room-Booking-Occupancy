@@ -135,6 +135,27 @@ def test_first_of_separated_equal_maximum_periods_is_returned() -> None:
     assert max_occupancy([(1, 3), (2, 3), (5, 7), (6, 7)]) == (2, 2, 3)
 
 
+def test_repeated_calls_with_the_same_bookings_return_the_same_result() -> None:
+    bookings = [(1, 3), (2, 3), (5, 7), (6, 7)]
+
+    results = [max_occupancy(bookings) for _ in range(3)]
+
+    assert results == [(2, 2, 3)] * 3
+
+
+def test_calculation_does_not_modify_bookings_or_their_entries() -> None:
+    bookings = [(1, 4), (2, 3), (5, 8)]
+    original_bookings = bookings.copy()
+
+    max_occupancy(bookings)
+
+    assert bookings == original_bookings
+    assert all(
+        current is original
+        for current, original in zip(bookings, original_bookings, strict=True)
+    )
+
+
 def test_sorted_events_keep_coincident_starts_and_ends() -> None:
     assert _build_sorted_events(
         [(1, 4), (1, 4), (1, 3), (2, 4)]

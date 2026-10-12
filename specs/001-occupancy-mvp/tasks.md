@@ -99,7 +99,7 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** cualquier reserva inválida hace fallar la llamada con el
   error acordado y la prueba confirma que no se devuelve un resultado parcial.
 
-- [ ] **T011 — Verificar determinismo y conservación de la entrada** (20 min)  
+- [x] **T011 — Verificar determinismo y conservación de la entrada**
   **RF:** RF-1, RF-3, RF-6.  
   **Depende de:** T006, T008.  
   Agregar pruebas que repitan la misma entrada y que comprueben que el cálculo
@@ -107,17 +107,12 @@ sin CLI ni interfaces externas. Toda documentación técnica del producto
   **Hecho cuando:** las llamadas repetidas devuelven el mismo resultado, la
   entrada permanece intacta y las pruebas enfocadas pasan.
 
-- [ ] **T012 — Documentar el contrato y los fundamentos en README** (30 min)  
+- [x] **T012 — Documentar el contrato y los fundamentos en README** (30 min)  
   **RF:** RF-1–RF-9.  
   **Depende de:** T002, T003, T007, T008.  
-  Actualizar `README.md` en inglés para describir la función Python, su tupla de
-  retorno, la semántica de intervalos, la validación, duplicados, extremos
-  negativos y las reglas de desempate. Incluir el algoritmo, sus complejidades
-  temporal y espacial, las decisiones principales y los casos límite, conforme
-  a la constitución. No documentar una interfaz JSON ni CLI.  
-  **Hecho cuando:** el README documenta los nueve RF, explica la complejidad
-  temporal y espacial y analiza los casos límite relevantes, sin prometer
-  interfaces fuera del alcance.
+  Actualizar `README.md` en inglés y que no te lleve más de cinco minutos: 
+  cómo instalar y ejecutar, cómo lanzar los tests, y prepara un apartado par colocar el enlace a un vídeo.  
+  **Hecho cuando:** el README documenta lo neceasario.
 
 - [ ] **T013 — Documentar algoritmo, complejidad y casos límite** (30 min)  
   **RF:** RF-1–RF-9.  
