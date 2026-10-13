@@ -221,3 +221,8 @@ __marimo__/
 
 # Local skills
 /skills/
+
+# Project planning and agent instructions
+/specs/
+/docs/
+/AGENTS.md
