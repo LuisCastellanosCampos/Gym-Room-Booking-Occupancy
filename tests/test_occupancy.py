@@ -125,6 +125,19 @@ def test_validation_checks_start_before_end_when_both_are_invalid(
     )
 
 
+def test_each_booking_is_validated_during_single_event_extraction_pass() -> None:
+    class IterationCountingBookings(list[tuple[int, int]]):
+        def __iter__(self):
+            self.iteration_count += 1
+            return super().__iter__()
+
+    bookings = IterationCountingBookings([(1, 4), (2, 5)])
+    bookings.iteration_count = 0
+
+    assert max_occupancy(bookings) == (2, 2, 4)
+    assert bookings.iteration_count == 1
+
+
 def test_integer_booking_passes_validation() -> None:
     assert max_occupancy([(1, 2)])[0] == 1
 
