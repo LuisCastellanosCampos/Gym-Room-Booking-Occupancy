@@ -8,7 +8,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
 
 ## Tareas
 
-- [ ] **T001 — Caracterizar el comportamiento vigente** (20 min)  
+- [x] **T001 — Caracterizar el comportamiento vigente** (20 min)  
   **RF:** RF-3.  
   **Depende de:** ninguna.  
   Revisar las pruebas existentes y registrar los resultados, los errores exactos,
