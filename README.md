@@ -1,4 +1,4 @@
-# Room Booking Occupancy
+# Booking Occupancy
 
 Find out how many bookings overlap at most, and when the first busiest
 stretch happens.
