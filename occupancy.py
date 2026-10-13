@@ -2,9 +2,13 @@ class InvalidBookingError(ValueError):
     pass
 
 
+_START_EVENT = 1
+_END_EVENT = 0
+
+
 def _build_sorted_events(
     bookings: list[tuple[int, int]],
-) -> list[tuple[int, str]]:
+) -> list[tuple[int, int]]:
     events = []
     for index, booking in enumerate(bookings):
         if len(booking) != 2:
@@ -32,14 +36,14 @@ def _build_sorted_events(
                 "start must be less than end"
             )
 
-        events.extend(((start, "start"), (end, "end")))
+        events.extend(((start, _START_EVENT), (end, _END_EVENT)))
 
-    events.sort(key=lambda event: (event[0], event[1] != "start"))
+    events.sort(key=lambda event: (event[0], event[1] != _START_EVENT))
     return events
 
 
 def _maximum_concurrency(
-    events: list[tuple[int, str]],
+    events: list[tuple[int, int]],
 ) -> tuple[int, int | None, int | None]:
     active = 0
     maximum = 0
@@ -53,7 +57,7 @@ def _maximum_concurrency(
             event_index < len(events)
             and events[event_index][0] == timestamp
         ):
-            if events[event_index][1] == "start":
+            if events[event_index][1] == _START_EVENT:
                 active += 1
             else:
                 active -= 1

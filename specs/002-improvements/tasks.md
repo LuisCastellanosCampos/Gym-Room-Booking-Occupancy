@@ -28,7 +28,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   valida durante la extracción de eventos, no hay un recorrido posterior de
   validación y se conserva el primer error vigente.
 
-- [ ] **T003 — Representar eventos con etiquetas enteras** (25 min)  
+- [x] **T003 — Representar eventos con etiquetas enteras** (25 min)  
   **RF:** RF-2, RF-3.  
   **Depende de:** T002.  
   Sustituir las etiquetas textuales de inicio y fin por etiquetas enteras.
