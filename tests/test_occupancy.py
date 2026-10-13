@@ -202,28 +202,32 @@ def test_calculation_does_not_modify_bookings_or_their_entries() -> None:
 
 
 def test_sorted_events_keep_coincident_starts_and_ends() -> None:
-    assert _build_sorted_events(
-        [(1, 4), (1, 4), (1, 3), (2, 4)]
-    ) == [
-        (1, "start"),
-        (1, "start"),
-        (1, "start"),
-        (2, "start"),
-        (3, "end"),
-        (4, "end"),
-        (4, "end"),
-        (4, "end"),
+    events = _build_sorted_events([(1, 4), (1, 4), (1, 3), (2, 4)])
+
+    assert events == [
+        (1, 1),
+        (1, 1),
+        (1, 1),
+        (2, 1),
+        (3, 0),
+        (4, 0),
+        (4, 0),
+        (4, 0),
     ]
+    assert all(type(event_type) is int for _, event_type in events)
 
 
 def test_sorted_events_place_starts_before_ends_at_shared_instant() -> None:
-    assert _build_sorted_events([(1, 2), (2, 3), (0, 2), (2, 4)]) == [
-        (0, "start"),
-        (1, "start"),
-        (2, "start"),
-        (2, "start"),
-        (2, "end"),
-        (2, "end"),
-        (3, "end"),
-        (4, "end"),
+    events = _build_sorted_events([(1, 2), (2, 3), (0, 2), (2, 4)])
+
+    assert events == [
+        (0, 1),
+        (1, 1),
+        (2, 1),
+        (2, 1),
+        (2, 0),
+        (2, 0),
+        (3, 0),
+        (4, 0),
     ]
+    assert all(type(event_type) is int for _, event_type in events)
