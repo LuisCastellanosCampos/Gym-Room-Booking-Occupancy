@@ -49,7 +49,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   comportamiento especificado y que las entradas inválidas no producen
   resultados parciales.
 
-- [ ] **T005 — Actualizar la documentación de uso** (25 min)  
+- [x] **T005 — Actualizar la documentación de uso** (25 min)  
   **RF:** RF-1, RF-2, RF-3.  
   **Depende de:** T004.  
   Actualizar `README.md` en inglés para explicar el contrato vigente y describir
@@ -59,7 +59,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   relevantes, además del recorrido único y las etiquetas enteras, sin
   contradicciones con `spec.md`.
 
-- [ ] **T006 — Documentar decisiones y complejidad** (30 min)  
+- [x] **T006 — Documentar decisiones y complejidad** (30 min)  
   **RF:** RF-1, RF-2, RF-3.  
   **Depende de:** T004.  
   Actualizar `ANALYSIS.md` en inglés con la justificación de las decisiones, el
@@ -69,7 +69,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   conserva el orden de eventos y documenta las complejidades y casos límite
   definidos.
 
-- [ ] **T007 — Ejecutar la verificación final** (20 min)  
+- [x] **T007 — Ejecutar la verificación final** (20 min)  
   **RF:** RF-1, RF-2, RF-3.  
   **Depende de:** T004, T005, T006.  
   Ejecutar la suite completa y revisar que la implementación y la documentación

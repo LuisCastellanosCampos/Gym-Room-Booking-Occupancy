@@ -49,6 +49,10 @@ the complete call raises `InvalidBookingError`, a `ValueError` subclass, with
 the zero-based booking index, its value, and the reason. The input list is not
 modified.
 
+Each booking is validated as its start and end events are built in one pass.
+Event labels are integers, with starts explicitly ordered before ends at a
+shared timestamp.
+
 ## Tests
 
 Run the complete test suite from the repository root:
