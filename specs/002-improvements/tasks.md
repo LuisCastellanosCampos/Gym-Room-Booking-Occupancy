@@ -17,7 +17,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   **Hecho cuando:** existe una lista verificable de comportamientos vigentes y
   sus pruebas de referencia para usar durante el cambio.
 
-- [ ] **T002 — Validar reservas al extraer eventos** (30 min)  
+- [x] **T002 — Validar reservas al extraer eventos** (30 min)  
   **RF:** RF-1, RF-3.  
   **Depende de:** T001.  
   Unificar la validación de cada reserva y la obtención de sus eventos de inicio
