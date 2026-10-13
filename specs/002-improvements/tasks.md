@@ -38,7 +38,7 @@ técnica del producto (`README.md` y `ANALYSIS.md`) se redactará en inglés.
   que-fin en instantes coincidentes y ausencia de cambios en el resultado
   público.
 
-- [ ] **T004 — Verificar compatibilidad y casos límite** (30 min)  
+- [x] **T004 — Verificar compatibilidad y casos límite** (30 min)  
   **RF:** RF-1, RF-2, RF-3.  
   **Depende de:** T002, T003.  
   Ejecutar y, cuando sea necesario, adaptar pruebas de regresión para entrada

@@ -139,7 +139,7 @@ def test_each_booking_is_validated_during_single_event_extraction_pass() -> None
 
 
 def test_integer_booking_passes_validation() -> None:
-    assert max_occupancy([(1, 2)])[0] == 1
+    assert max_occupancy([(1, 2)]) == (1, 1, 2)
 
 
 @pytest.mark.parametrize(
@@ -153,11 +153,11 @@ def test_integer_booking_passes_validation() -> None:
 def test_valid_booking_with_negative_times_passes_validation(
     booking: tuple[int, int],
 ) -> None:
-    assert max_occupancy([booking])[0] == 1
+    assert max_occupancy([booking]) == (1, booking[0], booking[1])
 
 
 def test_overlapping_bookings_return_maximum_concurrency() -> None:
-    assert max_occupancy([(1, 4), (2, 5), (3, 6)])[0] == 3
+    assert max_occupancy([(1, 4), (2, 5), (3, 6)]) == (3, 3, 4)
 
 
 def test_identical_bookings_each_contribute_to_occupancy() -> None:
@@ -165,11 +165,11 @@ def test_identical_bookings_each_contribute_to_occupancy() -> None:
 
 
 def test_consecutive_bookings_do_not_overlap_at_shared_instant() -> None:
-    assert max_occupancy([(1, 3), (3, 5)])[0] == 1
+    assert max_occupancy([(1, 3), (3, 5)]) == (1, 1, 5)
 
 
 def test_all_events_at_shared_instant_are_applied_before_measuring() -> None:
-    assert max_occupancy([(0, 2), (2, 5), (2, 4)])[0] == 2
+    assert max_occupancy([(0, 2), (2, 5), (2, 4)]) == (2, 2, 4)
 
 
 def test_maximum_period_extends_across_change_instants() -> None:
