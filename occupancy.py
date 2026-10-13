@@ -1,15 +1,16 @@
 class InvalidBookingError(ValueError):
+    """Raised when a booking does not satisfy the input contract."""
+
     pass
 
 
-_START_EVENT = 1
-_END_EVENT = 0
+_START_EVENT: int = 1
+_END_EVENT: int = 0
 
 
-def _build_sorted_events(
-    bookings: list[tuple[int, int]],
-) -> list[tuple[int, int]]:
-    events = []
+def _build_sorted_events(bookings: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    """Validate bookings and return their events sorted by time."""
+    events: list[tuple[int, int]] = []
     for index, booking in enumerate(bookings):
         if len(booking) != 2:
             raise InvalidBookingError(
@@ -42,14 +43,13 @@ def _build_sorted_events(
     return events
 
 
-def _maximum_concurrency(
-    events: list[tuple[int, int]],
-) -> tuple[int, int | None, int | None]:
-    active = 0
-    maximum = 0
-    peak_start = None
-    peak_end = None
-    event_index = 0
+def _maximum_concurrency(events: list[tuple[int, int]]) -> tuple[int, int | None, int | None]:
+    """Find the maximum active count and its first continuous peak interval."""
+    active: int = 0
+    maximum: int = 0
+    peak_start: int | None = None
+    peak_end: int | None = None
+    event_index: int = 0
 
     while event_index < len(events):
         timestamp = events[event_index][0]
@@ -75,9 +75,8 @@ def _maximum_concurrency(
     return (maximum, peak_start, peak_end)
 
 
-def max_occupancy(
-    bookings: list[tuple[int, int]],
-) -> tuple[int, int | None, int | None]:
+def max_occupancy(bookings: list[tuple[int, int]]) -> tuple[int, int | None, int | None]:
+    """Return the maximum occupancy and its first continuous peak interval."""
     if not bookings:
         return (0, None, None)
 
