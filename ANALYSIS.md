@@ -98,6 +98,21 @@ The validation error message follows
 `Invalid booking at index {index} ({booking!r}): {reason}`. The index is
 zero-based, and the reason identifies the failed rule.
 
+## Compatibility characterization
+The following existing and added tests record the behavior to preserve before
+the optimization work:
+
+| Behavior | Reference tests |
+|---|---|
+| Empty input returns `(0, None, None)`. | `test_empty_bookings_return_zero_occupancy_without_peak_bounds` |
+| Booking shape, time types, booleans, and `start < end` are validated with the exact error class and message. | `test_booking_without_start_and_end_times_raises_identifying_error`, `test_booking_with_non_integer_or_boolean_time_raises_identifying_error`, `test_booking_with_invalid_order_raises_identifying_error` |
+| The first invalid booking in input order wins; within a booking, `start` is checked before `end`. | `test_first_invalid_booking_in_input_order_is_reported`, `test_validation_checks_start_before_end_when_both_are_invalid` |
+| Invalid input rejects the whole call, including when valid bookings precede the invalid one. | `test_mixed_valid_and_invalid_bookings_reject_the_entire_input` |
+| Negative integer times and duplicate bookings remain valid and count independently. | `test_valid_booking_with_negative_times_passes_validation`, `test_identical_bookings_each_contribute_to_occupancy` |
+| Shared endpoints follow half-open interval semantics; same-instant events are grouped and starts sort before ends. | `test_consecutive_bookings_do_not_overlap_at_shared_instant`, `test_all_events_at_shared_instant_are_applied_before_measuring`, `test_sorted_events_place_starts_before_ends_at_shared_instant` |
+| A continuous maximum extends across changes, while separated equal maxima return the first period. | `test_maximum_period_extends_across_change_instants`, `test_first_of_separated_equal_maximum_periods_is_returned` |
+| Repeated calls are deterministic and the input bookings and entries are not modified. | `test_repeated_calls_with_the_same_bookings_return_the_same_result`, `test_calculation_does_not_modify_bookings_or_their_entries` |
+
 ## Functional requirement coverage
 
 | Requirement | Design and behavior |

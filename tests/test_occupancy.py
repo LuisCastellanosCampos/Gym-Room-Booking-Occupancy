@@ -93,6 +93,38 @@ def test_mixed_valid_and_invalid_bookings_reject_the_entire_input(
     )
 
 
+def test_first_invalid_booking_in_input_order_is_reported() -> None:
+    bookings = [(1, "2"), (True, 3)]
+
+    with pytest.raises(InvalidBookingError) as error:
+        max_occupancy(bookings)  # type: ignore[list-item]
+
+    assert str(error.value) == (
+        "Invalid booking at index 0 ((1, '2')): "
+        "end time must be an integer"
+    )
+
+
+@pytest.mark.parametrize(
+    ("booking", "reason"),
+    [
+        (("1", 2.5), "start time must be an integer"),
+        ((True, 2.5), "start time must not be a boolean"),
+        ((1.5, False), "start time must be an integer"),
+    ],
+)
+def test_validation_checks_start_before_end_when_both_are_invalid(
+    booking: tuple[object, object],
+    reason: str,
+) -> None:
+    with pytest.raises(InvalidBookingError) as error:
+        max_occupancy([booking])  # type: ignore[list-item]
+
+    assert str(error.value) == (
+        f"Invalid booking at index 0 ({booking!r}): {reason}"
+    )
+
+
 def test_integer_booking_passes_validation() -> None:
     assert max_occupancy([(1, 2)])[0] == 1
 
