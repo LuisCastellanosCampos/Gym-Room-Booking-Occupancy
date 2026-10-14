@@ -63,5 +63,5 @@ python -m pytest -q
 
 ## Video
 
-- [YouTube video](https://youtu.be/dUlosfLBNks?si=kCG5GX4XMkF-ecLx)
-- [Google Drive file](https://drive.google.com/file/d/1zIh-N1CVGSziElfDWKx2WEEmZ71oXRVt/view?usp=sharing)
+- [YouTube video](https://www.youtube.com/watch?v=pulZFIDmA9w)
+- [Google Drive file](https://drive.google.com/file/d/11tZk33_JvRk2jhjS_zhhclgbD0r0qp9r/view?usp=sharing)
