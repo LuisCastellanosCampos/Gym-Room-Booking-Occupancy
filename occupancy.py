@@ -1,8 +1,6 @@
 class InvalidBookingError(ValueError):
     """Raised when a booking does not satisfy the input contract."""
 
-    pass
-
 
 _START_EVENT: int = 1
 _END_EVENT: int = 0
