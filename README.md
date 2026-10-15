@@ -47,5 +47,5 @@ python -m pytest -q
 
 ## 📺 Video
 
-- [YouTube video](https://www.youtube.com/watch?v=pulZFIDmA9w)
-- [Google Drive file](https://drive.google.com/file/d/11tZk33_JvRk2jhjS_zhhclgbD0r0qp9r/view?usp=sharing)
+- [YouTube video](https://www.youtube.com/watch?v=AKKb31RBI_k)
+- [Google Drive file](https://drive.google.com/file/d/1vUHUowegbxs81e-UzgGMaGCaw1yMK_yw/view?usp=sharing)
