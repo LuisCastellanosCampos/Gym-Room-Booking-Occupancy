@@ -1,59 +1,43 @@
-# The room's capacity
+# 🏋️ Gym Room Booking Occupancy
 
-Find out how many bookings overlap at most, and when the first busiest
-stretch happens.
+Find the highest number of bookings active at the same time. The function also
+returns the start and end times of the first period when this maximum occurs.
+It is written in pure Python and can be used in a larger application.
 
-## Requirements
+## 🚀 Quick start
 
-- Python 3.12 or later.
-- The calculation uses only the Python standard library.
-- `pytest` is required only to run the test suite.
-
-## Installation
-
-Clone or download this repository and run the following commands from its root.
-No package installation is needed to use the calculation. To install the test
-dependency, run:
-
-```shell
-python -m pip install pytest
-```
-
-## Usage
-
-Import `max_occupancy` from `occupancy.py` and pass a list of `(start, end)`
-integer tuples:
+Use Python 3.12 or later. Clone or download the repository, then import the
+function from `occupancy.py`:
 
 ```python
 from occupancy import max_occupancy
 
 bookings = [(-2, 2), (0, 1), (5, 8), (6, 7)]
-result = max_occupancy(bookings)
-print(result)  # (2, 0, 1)
+maximum, peak_start, peak_end = max_occupancy(bookings)
+
+print(maximum, peak_start, peak_end)
+# 2 0 1
 ```
 
-The returned tuple is
-`(maximum_occupancy, peak_start, peak_end)`. For an empty list the result is
-`(0, None, None)`. The calculation is a Python API; the project does not provide
-a command-line interface.
+The function returns three values:
 
-Each booking uses the half-open interval `[start, end)`: its start is included
-and its end is excluded. The reported peak is the first chronological
-continuous period at the global maximum; adjacent intervals at that maximum
-are reported as one period.
+```text
+(maximum_occupancy, peak_start, peak_end)
+```
 
-Every booking must contain exactly two integer times with `start < end`.
-Boolean and other non-integer times are invalid; valid negative times are
-accepted. Duplicate bookings count independently. If any booking is invalid,
-the complete call raises `InvalidBookingError`, a `ValueError` subclass, with
-the zero-based booking index, its value, and the reason. The input list is not
-modified.
+`peak_start` and `peak_end` are the start and end times of the first period
+with the maximum number of active bookings. For the example above, the result
+is `(2, 0, 1)`: two bookings are active from time `0` up to (but not including)
+time `1`.
 
-Each booking is validated as its start and end events are built in one pass.
-Event labels are integers, with starts explicitly ordered before ends at a
-shared timestamp.
+No installation is needed to use the calculation. To run the tests, install
+`pytest`:
 
-## Tests
+```shell
+python -m pip install pytest
+```
+
+## 🧪 Tests
 
 Run the complete test suite from the repository root:
 
@@ -61,7 +45,7 @@ Run the complete test suite from the repository root:
 python -m pytest -q
 ```
 
-## Video
+## 📺 Video
 
 - [YouTube video](https://www.youtube.com/watch?v=pulZFIDmA9w)
 - [Google Drive file](https://drive.google.com/file/d/11tZk33_JvRk2jhjS_zhhclgbD0r0qp9r/view?usp=sharing)
