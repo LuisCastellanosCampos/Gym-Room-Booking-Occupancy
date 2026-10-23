@@ -44,8 +44,3 @@ Run the complete test suite from the repository root:
 ```shell
 python -m pytest -q
 ```
-
-## 📺 Video
-
-- [YouTube video](https://www.youtube.com/watch?v=AKKb31RBI_k)
-- [Google Drive file](https://drive.google.com/file/d/1vUHUowegbxs81e-UzgGMaGCaw1yMK_yw/view?usp=sharing)
